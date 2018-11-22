@@ -1,0 +1,13 @@
+.countdown {
+	color: #b61b27;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.countdown h2 { 
+	font-family: futura_bdcn_btbold_italic;
+    font-size: 30px;
+    color: #fff;
+    margin-bottom: 0;
+}

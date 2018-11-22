@@ -1,0 +1,13 @@
+name = Quickie Feature
+description = "This module contains the custom PHP functions for the Quickie feature."
+core = 7.x
+package = Custom
+stylesheets[all][] = countdown.css
+
+; Includes
+
+; Information added by drupal.org packaging script on 2012-06-01
+version = "7.x-1.0"
+core = "7.x"
+project = "customQUICK"
+datestamp = " 1380690000 "

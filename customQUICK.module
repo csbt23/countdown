@@ -1,0 +1,47 @@
+<?php
+
+function customQUICK_menu() {
+	$items = array();
+	$items['start_quickie'] = array(
+		'title' => 'Start The Quicky!',
+     	'description' => 'Starting countdown...',
+     	'page callback' => 'customQUICK_start_quickie',
+     	'access callback' => TRUE
+	);
+	return $items;
+}
+
+function customQUICK_start_quickie() {
+	$_SESSION['quickie_discount'] = 0;
+	$_SESSION['quickie_run'] = 1;
+	$_SESSION['quickie_start_time'] = date("m/j/Y h:i:s");
+	global $user;
+	$userID = $user->uid;
+	$current_cart = commerce_cart_order_load($userID);
+	$number_of_items = count($current_cart->commerce_line_items['und']);
+	if ($number_of_items > 0) {
+		commerce_cart_order_empty($current_cart);
+	}
+	drupal_goto($path = '/home');
+}
+
+function customQUICK_check_state() {
+	$time_now = strtotime(date("m/j/Y h:i:s"));
+    $time_elapsed = $time_now - strtotime($_SESSION['quickie_start_time']);
+    $minutes_elapsed = (int)($time_elapsed / 60);
+    $minutes_remaining = 9 - $minutes_elapsed;
+    $seconds_elapsed = $time_elapsed%60;
+    $seconds_remaining = 60 - $seconds_elapsed;
+    if ($seconds_remaining == 60) {
+    	$seconds_remaining = 0;
+     	$minutes_remaining++;
+    }
+    if (($time_elapsed >= 0) && (($minutes_remaining > 0) || (($minutes_remaining == 0) && ($seconds_remaining > 0)))) {
+    	return 1;
+    }
+    else {
+       	return 0;
+    }
+}
+
+?>
